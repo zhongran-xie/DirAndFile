@@ -10,6 +10,7 @@
 		<module>dir</module>
 		<module>file</module>
 		<module>main</module>
+		<module>gui</module>
 	</modules>
 
 	<build>
