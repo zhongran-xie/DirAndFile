@@ -12,16 +12,10 @@
 	<description>启动模块</description>
 
 	<dependencies>
-		<!-- 依赖文件模块 -->
+		<!-- 依赖文件(文件夹)模块 -->
 		<dependency>
 			<groupId>com.file</groupId>
 			<artifactId>file</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- 依赖文件夹模块 -->
-		<dependency>
-			<groupId>com.dir</groupId>
-			<artifactId>dir</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- 依赖gui模块 -->

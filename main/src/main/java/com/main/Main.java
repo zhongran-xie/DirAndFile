@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.file.Copy;
 import com.gui.Gui;
 
 /**   
@@ -152,7 +153,7 @@ public class Main {
 	}
 	// 复制文件
 	try {
-	    CopyDirAndFile.copyDir(oldPath, newPath, paths, files);
+	    new Copy().copy(oldPath, newPath, paths, files);
 	} catch (Exception ex) {
 	    return 1;
 	}

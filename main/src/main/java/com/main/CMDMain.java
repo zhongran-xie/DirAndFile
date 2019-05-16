@@ -6,7 +6,8 @@ package com.main;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.file.ReadFile;
+import com.common.ReadFile;
+import com.file.Copy;
 
 /**   
  * @ClassName:  CopyDirAndFileTest   
@@ -30,7 +31,7 @@ public class CMDMain {
 	ReadFile readFile = new ReadFile();
 	Map<String, String> map = readFile.readFile(path);
 	try {
-	    CopyDirAndFile.copyDir(map.get("oldPath"), map.get("newPath"),
+	    new Copy().copy(map.get("oldPath"), map.get("newPath"),
 		    (map.get("paths") == null) ? null : map.get("paths").split(","),
 		    (map.get("files") == null) ? null : map.get("files").split(","));
 	    System.out.println("复制完成");
