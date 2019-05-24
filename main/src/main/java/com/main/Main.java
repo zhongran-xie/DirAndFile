@@ -153,7 +153,7 @@ public class Main {
 	}
 	// 复制文件
 	try {
-	    new Copy().copy(oldPath, newPath, paths, files);
+	    new Copy().copy(oldPath, newPath, paths, files,0);
 	} catch (Exception ex) {
 	    return 1;
 	}

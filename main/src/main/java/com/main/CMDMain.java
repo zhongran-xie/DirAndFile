@@ -33,7 +33,7 @@ public class CMDMain {
 	try {
 	    new Copy().copy(map.get("oldPath"), map.get("newPath"),
 		    (map.get("paths") == null) ? null : map.get("paths").split(","),
-		    (map.get("files") == null) ? null : map.get("files").split(","));
+		    (map.get("files") == null) ? null : map.get("files").split(","), 0);
 	    System.out.println("复制完成");
 	} catch (Exception e) {
 	    System.err.println("复制出错了");
