@@ -53,7 +53,9 @@ public class Copy {
 
 	if (filePath != null && filePath.length > 0) {
 	    // 获取源路径需要复制的文件夹
-	    newPath = newPath + File.separator + oldPath.substring(oldPath.lastIndexOf(File.separator) + 1);
+	    // newPath = newPath + File.separator +
+	    // oldPath.substring(oldPath.lastIndexOf(File.separator) + 1);
+	    newPath = newPath + File.separator + file.getName();
 	    // 判断需要复制的文件夹是否存在。
 	    if (new File(newPath).exists()) {
 		System.out.println("路径已经存在");
@@ -151,11 +153,17 @@ public class Copy {
     */
     private void copyFile(String oldPath, String newPath) throws IOException {
 	// 获取文件路径
-	String beginStr = newPath.substring(0, newPath.lastIndexOf(File.separator));
+	// String beginStr = newPath.substring(0, newPath.lastIndexOf(File.separator));
 	// 获取文件名
-	String endStr = newPath.substring(newPath.lastIndexOf(File.separator) + 1);
+	// String endStr = newPath.substring(newPath.lastIndexOf(File.separator) + 1);
 
-	File newFile = new File(beginStr);
+	File f = new File(newPath);
+	// 获取路径
+	String parent = f.getParent();
+	// 获取文件名
+	String name = f.getName();
+
+	File newFile = new File(parent);
 	// 获取目标目录下的文件夹及文件数组
 	String[] filePath = newFile.list();
 	List<String> list = Arrays.asList(filePath);
@@ -163,16 +171,16 @@ public class Copy {
 	filePaths.addAll(list);
 	// 只保留文件集合
 	for (int i = 0; i < filePaths.size(); i++) {
-	    if (new File(beginStr + File.separator + filePaths.get(i)).isDirectory()) {
+	    if (new File(parent + File.separator + filePaths.get(i)).isDirectory()) {
 		filePaths.remove(filePaths.get(i));
 	    }
 	}
 
 	// 判断复制的文件是否已经存在
-	while (filePaths.contains(endStr)) {
+	while (filePaths.contains(name)) {
 	    int parseInt = 1;
 	    // 截取数字
-	    String substring = endStr.substring(endStr.lastIndexOf("(") + 1, endStr.lastIndexOf(".") - 1);
+	    String substring = name.substring(name.lastIndexOf("(") + 1, name.lastIndexOf(".") - 1);
 	    try {
 		parseInt = Integer.parseInt(substring);
 		parseInt++;
@@ -180,18 +188,18 @@ public class Copy {
 		System.out.println("转换失败");
 	    } finally {
 		// 获取(在文件名中的索引
-		int begIn = endStr.lastIndexOf("(");
+		int begIn = name.lastIndexOf("(");
 		// 获取.在文件名中的索引
-		int endIn = endStr.lastIndexOf(".");
+		int endIn = name.lastIndexOf(".");
 		// 截取(前的文件名
-		String sub1 = (begIn == -1) ? endStr.substring(0, endIn) : endStr.substring(0, begIn);
-		// 截取文件的后缀名
-		String sub2 = endStr.substring(endStr.lastIndexOf("."));
+		String front = (begIn == -1) ? name.substring(0, endIn) : name.substring(0, begIn);
+		// 截取文件的后缀名（文件类型）
+		String later = name.substring(name.lastIndexOf("."));
 		// 拼接为最终文件名
-		endStr = sub1 + "(" + parseInt + ")" + sub2;
+		name = front + "(" + parseInt + ")" + later;
 	    }
 	}
-	newPath = beginStr + File.separator + endStr;
+	newPath = parent + File.separator + name;
 
 	File oldFile = new File(oldPath);
 	File file = new File(newPath);

@@ -21,13 +21,13 @@ public class CopyTest {
 
     @Test
     public void copy() {
-//	String oldPath = "C:\\Users\\Administrator\\Desktop\\文档\\test\\old";
-	String oldPath = "C:\\Users\\Administrator\\Desktop\\文档\\test\\1";
+	String oldPath = "C:\\Users\\Administrator\\Desktop\\文档\\test\\old";
+//	String oldPath = "C:\\Users\\Administrator\\Desktop\\文档\\test\\1";
 	String newPath = "C:\\Users\\Administrator\\Desktop\\文档\\test\\new";
 	String[] paths = { "pay" };
 	String[] files = { "新建 WinRAR ZIP 压缩文件.zip" };
 	try {
-	    Map<String, Integer> map = new Copy().copy(oldPath, newPath, paths, files, 1);
+	    Map<String, Integer> map = new Copy().copy(oldPath, newPath, paths, files, 0);
 	    System.out.println("复制的文件夹：" + map.get("copyDir") + " 个");
 	    System.out.println("复制的文件：" + map.get("copyFile") + " 个");
 	    System.out.println("跳过的文件夹：" + map.get("skipDir") + " 个");
