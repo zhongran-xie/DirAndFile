@@ -11,10 +11,10 @@ import java.util.Map;
 import com.common.UpdateDTO;
 
 /**   
- * @ClassName:  UpdateFileName   
- * @Description:TODO  修改文件夹/文件名
+ * @ClassName:  Update   
+ * @Description:TODO  修改文件名
  * @author: xzr 
- * @date:   2019年5月16日 
+ * @date:   2019年5月28日 
  *     
  */
 public class Update {
@@ -25,9 +25,7 @@ public class Update {
     /** 
       * @Title: update 
       * @Description: TODO 
-      * @param path  文件路径
-      * @param dirMap 需要修改名称的文件夹集合
-      * @param fileMap 需要修改名称的文件名集合
+      * @param list List<UpdateDTO> 集合
       * @return: Map<String,Object> 返回值类型
     */
     public Map<String, Object> update(List<UpdateDTO> list) {
@@ -40,6 +38,12 @@ public class Update {
 	return map;
     }
 
+    /** 
+      * @Title: update 
+      * @Description: TODO
+      * @param updateDTO 文件操作类
+      * @return: void 返回值类型
+    */
     private void update(UpdateDTO updateDTO) {
 	String path = updateDTO.getPath();
 	File file = new File(path);
@@ -66,13 +70,15 @@ public class Update {
 
     }
 
+    
+    
     /** 
       * @Title: update 
       * @Description: TODO
-      * @param updateDTO 操作对象
-      * @param string  文件全名
-      * @param path 文件路径
-      * @param file1 对象
+      * @param updateDTO 文件操作
+      * @param string 文件全名
+      * @param path 路径
+      * @param file1 
       * @return: void 返回值类型
     */
     private void update(UpdateDTO updateDTO, String string, String path, File file1) {
@@ -81,9 +87,10 @@ public class Update {
 	// 获取文件名（无后缀）
 	String fileName = string.substring(0, string.lastIndexOf("."));
 
+	
 	if (updateDTO.getFileType() != null) {// 指定文件类型
 	    if (updateDTO.getFileType().equalsIgnoreCase(fileSuffix)) {// 是否匹配（匹配继续操作，不匹配不操作）
-		update(path, fileName, fileSuffix, file1);
+		update(path, fileName, fileSuffix, updateDTO, file1);
 	    }
 	} else {// 不指定文件类型（所有文件类型）
 	    update(path, fileName, fileSuffix, updateDTO, file1);
@@ -91,17 +98,28 @@ public class Update {
 
     }
 
-    private void update(String path, String fileName, String fileSuffix, String oldName, String newName, Integer type,
-	    File file1) {
-	if (fileName.indexOf(oldName) != -1) {
-	    if (type == 0) {
-		String newrString = fileName.replace(oldName, newName) + fileSuffix;
+    /** 
+      * @Title: update 
+      * @Description: TODO 
+      * @param path 路径
+      * @param fileName 文件名
+      * @param fileSuffix 文件后缀（文件类型）
+      * @param updateDTO 文件操作
+      * @param file1 
+      * @return: void 返回值类型
+    */
+    private void update(String path, String fileName, String fileSuffix, UpdateDTO updateDTO, File file1) {
+	if (fileName.indexOf(updateDTO.getOldName()) != -1) {
+	    if (updateDTO.getType() == 0) {
+		String newrString = fileName.replace(updateDTO.getOldName(), updateDTO.getNewName()) + fileSuffix;
 		File file2 = new File(path + File.separator + newrString);
 		file1.renameTo(file2);
+		updateFile++;
 	    }
-	    if (type == 1 && fileName.equalsIgnoreCase(oldName)) {
-		File file2 = new File(path + File.separator + newName + fileSuffix);
+	    if (updateDTO.getType() == 1 && fileName.equalsIgnoreCase(updateDTO.getOldName())) {
+		File file2 = new File(path + File.separator + updateDTO.getNewName() + fileSuffix);
 		file1.renameTo(file2);
+		updateFile++;
 	    }
 	}
     }

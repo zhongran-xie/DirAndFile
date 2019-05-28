@@ -39,7 +39,7 @@ public class UpdateTest {
     public void updateTest() {
 	List<UpdateDTO> list = new ArrayList<UpdateDTO>();
 
-	list.add(new UpdateDTO("C:\\Users\\Administrator\\Desktop\\文档\\test\\old", "修改", "就是", 0, false, ".txt", 1));
+	list.add(new UpdateDTO("C:\\Users\\Administrator\\Desktop\\文档\\test\\old", "修改", "压缩", 0, false, ".zip", 0));
 	Map<String, Object> update = new Update().update(list);
 	System.out.println("修改了文件夹名：" + update.get("updateDir") + " 个");
 	System.out.println("修改了文件名：" + update.get("updateFile") + " 个");
